@@ -25,12 +25,12 @@ public class ProductServiceTest {
 	public void createTest() {
 	    LocalDate currentDate = LocalDate.now();
 
-	    Product product1 = new Product(12, "����", "�隞亦忽�����", 100, 25, 0, true, "", 1, currentDate);
+	    Product product1 = new Product(20, "����", "�隞亦忽�����", 100, 25, 0, true, "", 1, currentDate);
 	    ProductRes res1 = service.create(product1);
 	    System.out.println("�摮���: " + res1.getRtnCode().getMessage());
 	    System.out.println("�摮���:" + res1.getProduct().getProductName());
 
-	    Product product2 = new Product(23, "����", "�靘����", 299, 25, 12, true, "", 1, currentDate);
+	    Product product2 = new Product(3, "����", "�靘����", 299, 25, 12, true, "", 1, currentDate);
 	    ProductRes res2 = service.create(product2);
 	    System.out.println("�摮���: " + res2.getRtnCode().getMessage());
 	    System.out.println("�摮���:" + res2.getProduct().getProductName());
