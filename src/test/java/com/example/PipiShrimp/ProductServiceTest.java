@@ -25,35 +25,35 @@ public class ProductServiceTest {
 	public void createTest() {
 	    LocalDate currentDate = LocalDate.now();
 
-	    Product product1 = new Product(1, "拖鞋", "可以穿的拖鞋", 100, 25, 0, true, "", 1, currentDate);
+	    Product product1 = new Product(12, "����", "�隞亦忽�����", 100, 25, 0, true, "", 1, currentDate);
 	    ProductRes res1 = service.create(product1);
-	    System.out.println("儲存結果: " + res1.getRtnCode().getMessage());
-	    System.out.println("儲存產品:" + res1.getProduct().getProductName());
+	    System.out.println("�摮���: " + res1.getRtnCode().getMessage());
+	    System.out.println("�摮���:" + res1.getProduct().getProductName());
 
-	    Product product2 = new Product(2, "掃把", "用來掃地的", 299, 25, 12, true, "", 1, currentDate);
+	    Product product2 = new Product(23, "����", "�靘����", 299, 25, 12, true, "", 1, currentDate);
 	    ProductRes res2 = service.create(product2);
-	    System.out.println("儲存結果: " + res2.getRtnCode().getMessage());
-	    System.out.println("儲存產品:" + res2.getProduct().getProductName());
+	    System.out.println("�摮���: " + res2.getRtnCode().getMessage());
+	    System.out.println("�摮���:" + res2.getProduct().getProductName());
 
-	    Product product3 = new Product(3, "大麻", "吸食用藥物", 3999, 10, 999, false, "", 1, currentDate);
+	    Product product3 = new Product(33, "憭折獄", "�憌��", 3999, 10, 999, false, "", 1, currentDate);
 	    ProductRes res3 = service.create(product3);
-	    System.out.println("儲存結果: " + res3.getRtnCode().getMessage());
-	    System.out.println("儲存產品:" + res3.getProduct().getProductName());
+	    System.out.println("�摮���: " + res3.getRtnCode().getMessage());
+	    System.out.println("�摮���:" + res3.getProduct().getProductName());
 	}
 
 	@Test
 	public void searchAllTest() {
 		List<Product> res = service.getAllProductInfo().getProducts();
 		for (Product item : res) {
-			System.out.println("產品名稱: " + item.getProductName());
+			System.out.println("����迂: " + item.getProductName());
 		}
 	}
 
 	@Test
 	public void searchByNameTest() {
-		List<Product> res = service.getProductByName("布丁").getProducts();
+		List<Product> res = service.getProductByName("撣��").getProducts();
 		for (Product item : res) {
-			System.out.println("產品名稱: " + item.getProductName());
+			System.out.println("����迂: " + item.getProductName());
 		}
 	}
 
@@ -61,8 +61,8 @@ public class ProductServiceTest {
 	public void getProductByPriceTest() {
 		List<Product> res = service.getProductByPrice().getProducts();
 		for (Product item : res) {
-			System.out.println("產品名稱: " + item.getProductName());
-			System.out.println("產品名稱: " + item.getPrice());
+			System.out.println("����迂: " + item.getProductName());
+			System.out.println("����迂: " + item.getPrice());
 			System.out.println("-----------------");
 		}
 	}
@@ -71,8 +71,8 @@ public class ProductServiceTest {
 	public void getProductByPriceDescTest() {
 		List<Product> res = service.getProductByPriceDesc().getProducts();
 		for (Product item : res) {
-			System.out.println("產品名稱: " + item.getProductName());
-			System.out.println("產品名稱: " + item.getPrice());
+			System.out.println("����迂: " + item.getProductName());
+			System.out.println("����迂: " + item.getPrice());
 			System.out.println("-----------------");
 		}
 	}
@@ -80,6 +80,6 @@ public class ProductServiceTest {
 	@Test
 	public void deleteAllProduct() {
 		dao.deleteAll();
-		System.out.println("資料已全數清除");
+		System.out.println("鞈�歇��皜");
 	}
 }
