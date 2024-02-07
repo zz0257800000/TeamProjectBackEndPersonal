@@ -48,12 +48,27 @@ public class User {
 	private String remittanceNumber;
 	
 
-		@Column(name = "user_photo", columnDefinition = "LONGTEXT")  // 雿輻甇�蝖桃�������� "LONGTEXT"嚗�摰���
-		@Lob
-		private String userPhoto;
+	@Column(name = "user_photo", columnDefinition = "MEDIUMBLOB")
+	private byte[] userPhoto;
+		
 		@Column(name = "seller_name")
 		@JsonProperty("seller_name")
 		private String sellerName;
+		
+		@Column(name = "points")
+		private int points;
+		@Column(name = "reset_password") 	//判斷是否要更改密碼		
+		private boolean resetPwd = false;
+
+		public boolean isResetPwd() { 
+				return resetPwd;
+			}
+
+		public void setResetPwd(boolean resetPwd) {
+				this.resetPwd = resetPwd;
+			}
+
+		
 		
 	public User() {
 		super();
@@ -71,8 +86,17 @@ public class User {
 
 	
 
+	
+
+	
+
+	
+
+
+
 	public User(int id, String name, String email, String pwd, String address, String phoneNumber, int level,
-			String remittanceTitle, String remittanceNumber, String userPhoto, String sellerName) {
+			String remittanceTitle, String remittanceNumber, byte[] userPhoto, String sellerName, int points,
+			boolean resetPwd) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -85,6 +109,8 @@ public class User {
 		this.remittanceNumber = remittanceNumber;
 		this.userPhoto = userPhoto;
 		this.sellerName = sellerName;
+		this.points = points;
+		this.resetPwd = resetPwd;
 	}
 
 	public User(User user) {
@@ -97,6 +123,24 @@ public class User {
 		this.level = user.getLevel();
 	}
 	
+	
+
+	public String getSellerName() {
+		return sellerName;
+	}
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
 	
 
 	public String getRemittanceTitle() {
@@ -115,11 +159,13 @@ public class User {
 		this.remittanceNumber = remittanceNumber;
 	}
 
-	public String getUserPhoto() {
+	
+
+	public byte[] getUserPhoto() {
 		return userPhoto;
 	}
 
-	public void setUserPhoto(String userPhoto) {
+	public void setUserPhoto(byte[] userPhoto) {
 		this.userPhoto = userPhoto;
 	}
 

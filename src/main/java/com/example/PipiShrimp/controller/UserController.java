@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.PipiShrimp.constants.RtnCode;
 import com.example.PipiShrimp.entity.User;
 import com.example.PipiShrimp.service.ifs.UserService;
+import com.example.PipiShrimp.vo.ChangePasswordReq;
+import com.example.PipiShrimp.vo.ForgotPwdReq;
 import com.example.PipiShrimp.vo.UserReq;
 import com.example.PipiShrimp.vo.UserRes;
 
@@ -53,5 +55,32 @@ public class UserController {
 	 public UserRes editUserInfo(@RequestBody User user) {
 	  return service.editUserInfo(user);
 	 }
+	//忘記密碼
+		@GetMapping(value = "/user/sentForgotPwd")
+		public UserRes sentForgotPwd(ForgotPwdReq req) {
+			return service.sentForgotPwd(req.getEmail());
+		}
+		
+		//更改密碼
+		@PostMapping(value = "/user/changePwd")
+		public UserRes changePwd(@RequestBody ChangePasswordReq req, HttpSession session) {
+//			//要更改密碼請先登入
+//			if(session.getAttribute(req.getEmail()) == null ) {
+//				return new UserRes(RtnCode.PLEASE_LOGIN_FIRST);
+//			}
+			return service.changePwd(req.getEmail(), req.getOldPwd(), req.getNewPwd());
+		}
+		
+		
 
+		@GetMapping(value = "/verify/sent")
+		public String getVerifyMail(@RequestParam(name = "mail") String email) {
+			return service.getVerifyMail(email);
+		}
+
+		@PostMapping(value = "/user/point/edit")
+		public UserRes addPoints(@RequestParam(name = "id") int id, //
+				@RequestParam(name = "points") int points) {
+			return service.addPoints(id, points);
+		}
 }

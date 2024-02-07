@@ -43,5 +43,5 @@ public interface ProductService {
 	 * 取得商品資訊(依價錢排序 高 => 低)
 	 **/
 	public ProductSearchRes getProductByPriceDesc();
-
+	public ProductSearchRes getByProductType(String ProductType);
 }

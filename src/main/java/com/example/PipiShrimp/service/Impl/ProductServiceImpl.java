@@ -1,14 +1,12 @@
 package com.example.PipiShrimp.service.Impl;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import javax.xml.bind.DatatypeConverter;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import com.example.PipiShrimp.constants.RtnCode;
 import com.example.PipiShrimp.entity.Product;
+import com.example.PipiShrimp.entity.User;
 import com.example.PipiShrimp.repository.ProductDao;
 import com.example.PipiShrimp.repository.UserDao;
 import com.example.PipiShrimp.service.ifs.ProductService;
@@ -34,46 +33,31 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private UserDao userDao;
-	//TODO �摮��撘�
-	 @Override
-	    public ProductRes create(Product product) {
-	        if (!StringUtils.hasText(product.getProductName()) || //
-	                !StringUtils.hasText(product.getDescription()) ||
-	                product.getPrice() <= 0 || //
-	                product.getInventory() < 0 //
-	        ) {
-	            return new ProductRes(RtnCode.PARAM_ERROR);
-	        }
 
-	        // 憭�ase64蝻�����
-	        String base64Image = product.getPhoto();
-	        if (base64Image != null && !base64Image.isEmpty()) {
-	            try {
-	                byte[] imageBytes =  DatatypeConverter.parseBase64Binary(base64Image);
-
-	                // TODO: 撠��蝏����摨��蝟餌�葉
-	                // 餈��挽����銝芰鈭��������� DAO
-	                // 霂瑟�摰��餈��
-	                // imageService.saveImage(imageBytes);
-	                // 霈曄蔭銝��
-	                product.setUploadTime(LocalDate.now());
-	            } catch (IllegalArgumentException e) {
-	                // 憭�ase64閫����秤
-	                e.printStackTrace();
-	                return new ProductRes(RtnCode.FILE_ERROR);
-	            }
-	        }
-
-	        try {
-	            proDao.save(product);
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            return new ProductRes(RtnCode.PRODUCT_CREATE_FAILED);
-	        }
-
-	        return new ProductRes(RtnCode.SUCCESSFUL, product);
+	// TODO �摮��撘�
+	// TODO 添加注释或其他必要的操作
+	@Override
+	public ProductRes create(Product product) {
+	    if (!StringUtils.hasText(product.getProductName()) ||
+	        !StringUtils.hasText(product.getDescription()) ||
+	        product.getPrice() <= 0 ||
+	        product.getInventory() < 0) {
+	        return new ProductRes(RtnCode.PARAM_ERROR);
 	    }
-	
+
+
+	    try {
+	        // 保存产品对象到数据库
+	        Product savedProduct = proDao.save(product);
+	        // 这里直接获取保存后的产品对象，而不是使用 Optional
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return new ProductRes(RtnCode.PRODUCT_CREATE_FAILED);
+	    }
+
+	    return new ProductRes(RtnCode.SUCCESSFUL, product);
+	}
+
 
 	@Override
 	public ProductRes delete(int id) {
@@ -129,9 +113,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		// �銝������
-		if (products.size() == 0) {
-			return new ProductSearchRes(RtnCode.PRODUCT_NOT_FOUND);
-		}
+		products = products.size() != 0 ? products : Collections.emptyList();
 
 		return new ProductSearchRes(RtnCode.SUCCESSFUL, products);
 	}
@@ -145,18 +127,22 @@ public class ProductServiceImpl implements ProductService {
 	public ProductSearchRes getProductByPriceDesc() {
 		return new ProductSearchRes(RtnCode.SUCCESSFUL, proDao.searchProductByPriceDesc());
 	}
+
 	@Override
-	 public ProductSearchRes getProductInfoByUserId(int id) {
-	  // user_id不存在
-	  if (!userDao.existsById(id)) {
-	   return new ProductSearchRes(RtnCode.USER_ID_NOT_FOUND);
-	  }
+	public ProductSearchRes getProductInfoByUserId(int id) {
+		// user_id不存在
+		if (!userDao.existsById(id)) {
+			return new ProductSearchRes(RtnCode.USER_ID_NOT_FOUND);
+		}
 
-	  List<Product> res = proDao.searchProductByUserId(id);
-	  // 如果商品為空 => 給一個空List
-	  res = res.size() != 0 ? res : Collections.emptyList();
+		List<Product> res = proDao.searchProductByUserId(id);
+		// 如果商品為空 => 給一個空List
+		res = res.size() != 0 ? res : Collections.emptyList();
 
-	  return new ProductSearchRes(RtnCode.SUCCESSFUL, res);
-	 }
-
+		return new ProductSearchRes(RtnCode.SUCCESSFUL, res);
+	}
+	@Override
+	public ProductSearchRes getByProductType(String ProductType) {
+		return new ProductSearchRes(RtnCode.SUCCESSFUL, proDao.searchProductByType(ProductType));
+	}
 }

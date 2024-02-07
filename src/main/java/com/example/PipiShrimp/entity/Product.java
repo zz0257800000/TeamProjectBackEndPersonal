@@ -38,23 +38,22 @@ public class Product {
 	@Column(name = "price")
 	private int price;
 
-	// 商品庫存數量
+	// ���澈摮���
 	@Column(name = "inventory")
 	private int inventory;
 
-	// 商品銷售數量
+	// ��������
 	@Column(name = "sale_count")
 	@JsonProperty("sale_count")
 	private int saleCount;
 
-	// 商品是否上架(boolean)
+	// ����銝(boolean)
 	@Column(name = "shelves")
 	private boolean shelves;
 
-	//用json 64base
-	@Column(name = "photo", columnDefinition = "LONGTEXT")  // 使用正确的列定义，例如 "LONGTEXT"，根据实际情况选择
-	@Lob
-	private String photo;
+	//�json 64base
+	@Column(name = "photo", columnDefinition = "MEDIUMBLOB")  
+	private byte[] photo;
 
 	
 	@Column(name = "user_id")
@@ -64,14 +63,23 @@ public class Product {
 	@Column(name = "upload_time")
 	@JsonProperty("upload_time")
 	private LocalDate uploadTime;
+	
+	@Column(name = "seller_name")
+	@JsonProperty("seller_name")
+	private String sellerName;
+	
 
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
+
+
 	public Product(int productId, String productName, String productType, String description, int price, int inventory,
-			int saleCount, boolean shelves, String photo, int userId, LocalDate uploadTime) {
+			int saleCount, boolean shelves, byte[] photo, int userId, LocalDate uploadTime, String sellerName) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -84,7 +92,24 @@ public class Product {
 		this.photo = photo;
 		this.userId = userId;
 		this.uploadTime = uploadTime;
+		this.sellerName = sellerName;
 	}
+
+
+
+
+
+	public String getSellerName() {
+		return sellerName;
+	}
+
+
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
+	}
+
+
 
 	public Product(Product product, LocalDate currentDate) {
 		super();
@@ -156,13 +181,23 @@ public class Product {
 		this.shelves = shelves;
 	}
 
-	public String getPhoto() {
+
+
+	public byte[] getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
+
+
+
+
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
+
+
+
+
 
 	public int getUserId() {
 		return userId;

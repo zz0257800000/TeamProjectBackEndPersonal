@@ -19,4 +19,21 @@ public interface UserService {
 	public UserRes login(UserReq req, HttpSession session);
 	public UserRes getUserInfo(int id);
 
-	public UserRes editUserInfo(User user);}
+	public UserRes editUserInfo(User user);
+	
+	/**
+	 * 忘記密碼**/
+	public UserRes sentForgotPwd(String email);
+	
+
+	/**
+	 * 更改密碼**/
+	public UserRes changePwd(String email, String oldPwd, String newPwd);
+
+	public UserRes addPoints(int id, int points);
+
+	UserRes addPoints(int id, String password, int points);
+
+	public String getVerifyMail(String email);
+
+}

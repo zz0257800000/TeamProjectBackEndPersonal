@@ -71,4 +71,10 @@ public class ProductController {
 	public ProductSearchRes getProductByPriceDesc() {
 		return service.getProductByPriceDesc();
 	}
+
+@GetMapping(value = "/product/searchByType")
+public ProductSearchRes getProductByType(//
+	@RequestParam(required = false) String productType) {
+return service.getByProductType(productType);
+}
 }

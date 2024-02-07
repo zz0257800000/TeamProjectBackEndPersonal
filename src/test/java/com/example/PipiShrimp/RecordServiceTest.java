@@ -25,26 +25,30 @@ public class RecordServiceTest {
 	        9,                             // recordId
 	        27,                           // userId
 	        107,                           // productId
-	        "ªZ§Ë²Õ¦Ñ®v­­¶q§@«~",                      // productName
+	        "æ­¦å¼„çµ„è€å¸«é™é‡ä½œå“",                      // productName
 	        5,                             // productCount
-	        "¦N«½«½",                     // consumerName
-	        "¥x¥_¥«¤ÑÀs°ê",                     // consumerAddress
+	        "å‰å¨ƒå¨ƒ",                     // consumerName
+	        "å°åŒ—å¸‚å¤©é¾åœ‹",                     // consumerAddress
 	        "0987878888",                     // consumerPhone
-	        "¦v°t",                         // shippingMethod
+	        "å®…é…",                         // shippingMethod
 	        80,                            // shippingCost
-	        "¶×´Ú",                      // paymentMethod
-	        "¤¤°ê«H°U",                      // remittanceTitle
+	        "åŒ¯æ¬¾",                      // paymentMethod
+	        "ä¸­åœ‹ä¿¡è¨—",                      // remittanceTitle
 	        "812-00000087888",                      // remittanceNumber
-	        "¦n³ßÅw¦Ñ®vªº§@«~!",                        // remarksColumn
+	        "å¥½å–œæ­¡è€å¸«çš„ä½œå“!",                        // remarksColumn
 	        10000,                           // productAmount
 	        LocalDateTime.now(),           // recordDate
-	        "¹B°e¤¤",                         // status
-	        "ÁÊ¶R",                         // recordType
+	        "é‹é€ä¸­",                         // status
+	        "è³¼è²·",                         // recordType
 	        true                           // valid
 , 0, null
 	    );
 
 	    service.create(record);
 	}
-
+	@Test
+	public void deleteAllRECORD() {
+		dao.deleteAll();
+		System.out.println("ï¿½ï¿½ïï”¢åš™è¸ï¿½îš¦ï¿½ï‹³è•­ï¿½ï…¼åš™è¸î´±ï¿½ï¿½î°´ïˆšè¬’ï¿½");
+	}
 }

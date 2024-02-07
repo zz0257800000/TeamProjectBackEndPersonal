@@ -51,4 +51,11 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
 			+ " ORDER BY price DESC", //
 			nativeQuery = true)
 	public List<Product> searchProductByPriceDesc();
+	
+	@Query(value = "SELECT * FROM product"//
+	        + " WHERE LOWER(product_type)"//
+	        + " LIKE LOWER(CONCAT('%',:type,'%'))"//
+	        + " ORDER BY product_id DESC;", //
+	        nativeQuery = true)
+	public List<Product> searchProductByType(@Param("type") String productType);
 }
